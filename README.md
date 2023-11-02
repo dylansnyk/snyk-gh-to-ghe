@@ -1,0 +1,2 @@
+# Snyk GH -> GHE migration
+
