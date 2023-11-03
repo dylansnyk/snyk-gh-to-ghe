@@ -1,6 +1,11 @@
 import requests
+import sys
 
 SNYK_TOKEN = ''
+
+dry_run = False
+if '--dry-run' in set(sys.argv):
+    dry_run = True
 
 def get_orgs():
     url = "https://api.snyk.io/rest/orgs?version=2023-10-24~beta&limit=100"
@@ -100,15 +105,19 @@ orgs = get_orgs()['data']
 for org in orgs:
     org_id = org['id']
 
-    val = input(f"{org['attributes']['name']} (n to quit): ")
-    if val == 'n':
+    val = input(f"{org['attributes']['name']} (q to quit, s to skip): ")
+    if val == 'q':
         exit()
+    if val == 's':
+        continue
 
-    print(org_id, org['attributes']['name'])
     ghe_id = get_org_ghe_id(org_id)
 
     repos = get_all_repos(org_id)
     for repo in repos:
         print(' >', repo)
-        res = import_repo(org_id, ghe_id, repo)
-        print(res.status_code)
+        if not dry_run:
+            res = import_repo(org_id, ghe_id, repo)
+            print(res.status_code)
+    
+    print('')
