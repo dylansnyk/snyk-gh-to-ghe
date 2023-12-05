@@ -17,7 +17,7 @@ def get_orgs():
 
 
 def enable_snyk_code(org_id):
-    pass
+
     url = f'https://api.snyk.io/rest/orgs/{org_id}/settings/code?version=2023-10-24~experimental'
 
     payload = {
