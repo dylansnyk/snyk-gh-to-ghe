@@ -20,3 +20,9 @@ Note: this script can also be used to sync the settings across your Snyk orgs (f
 1. Update the `SNYK_TOKEN`.
 2. Run `python reimport-repos.py --dry-run` to review all organizations and repos to be imported. The script will require user input for each org.
 3. Run `python reimport-repos.py` to execute the same process, but actually trigger the import for each repo.
+
+## Delete old GitHub projects
+
+1. Update `SNYK_TOKEN`
+2. Run `python delete-gh-projects.py --dry-run` to review all repos that will be deleted.
+3. Run `python delete-gh-projects.py` to execute the same process, but actually delete each repo.
